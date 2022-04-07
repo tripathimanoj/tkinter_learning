@@ -9,10 +9,10 @@ window.config(padx=20,pady=20)
 
 # to add text box...
 
-text=Text(height=5,width=30)
-text.focus()
-text.insert(END,"excample of test box")
-text.grid(column=1,row=4)
+# text=Text(height=5,width=30)
+# text.focus()
+# text.insert(END,"excample of test box")
+# text.grid(column=1,row=4)
 
 # ----------------------------------------------
 
@@ -64,13 +64,23 @@ radio_button2.pack()
 
 # for listbox
 
-'''def listbox_used(event):
+def listbox_used(event):
     print(listbox.get(listbox.curselection()))
 
 
 listbox=Listbox(height=4)
-furits=["aplle","pear","orange","kiwi"]
-for i in fruits'''
+data=["first","second","third","four"]
+for item in data:
+    listbox.insert(data.index(item),item)
+
+listbox.bind("<<ListboxSelect>>",listbox_used)
+listbox.pack()
+
+
+# ----------------------------------------------------
+
+
+
 
 
 
