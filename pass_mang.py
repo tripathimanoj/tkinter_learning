@@ -45,11 +45,12 @@ def save():
 
     is_ok= messagebox.askokcancel(title=website,message="successfully submitted")
     if is_ok or not_empty:
-         with open("data.text","a")as data_file:
-             data_file.write(f"{website} , {email} , {pas} \n")
+         with open("data.csv","a")as data_file:
+             data_file.write(f"{website},{email},{pas}\n")
              website_entry.delete(0,END)
              password_entry.delete(0,END)
              email_entry.delete(0,END)
+
 
 
 
@@ -79,10 +80,59 @@ generate_password.grid(column=2,row=2)
 add_button=Button(text="Add",width=34,command=save)
 add_button.grid(column=1,row=3,columnspan=2)
 
+
+
+
+
+# --------------------------- STORE DATA IN MYSQL----------------------------
+
+'''import mysql.connector as conn
+mydb=conn.connect(host='localhost',user="root",passwd="12345")
+# establish the connection host==> who is hosting the mysql if local then localhost if any cloud then it will be that cloud url.
+cursor=mydb.cursor()
+# cursor.execute("create database passmang")
+# cursor.execute("create table passmang.data(website VARCHAR(50), email VARCHAR(30), password VARCHAR(20))")
+cursor.execute("use passmang")
+cursor.execute('insert into passmang.data values('hcom','a@gmail.com','kdk')')
+
+# cursor.execute("select * from passmang.data")
+# cursor.fetchall()'''
+
+
+'''import pandas as pd
+import csv
+cursor.execute("use passmang")
+with open('data.csv','r') as f:
+    data=csv.reader(f,delimiter='\n')
+    for lines in enumerate(data):
+        for i in (lines[1]):
+            cursor.execute('insert into passmang.data values ({values})'.format(values=(i)))
+    mydb.commit()'''
+
+
+# import pandas as pd
+# d=pd.read_csv('data.csv')
+
+'''def fetch_data():
+    import pandas as pd
+    # cursor.execute("select * from passmang.data")
+    # return cursor.fetchall()
+    return pd.read_csv('data.csv')'''
+    
+
+def fetch():
+    display_text.insert(END,pd.read_csv('data.csv'))
+
+
+display_text=Text(height=5,width=35)
+display_text.grid(column=1,row=4)
+
+import pandas as pd
+fetch_button=Button(text="Fetch Data",width=14,command=fetch)
+fetch_button.grid(column=1,row=6,columnspan=2)
+#-----------------------------------------------------------------------------
+
 window.mainloop()
-
-
-
 
 
 
